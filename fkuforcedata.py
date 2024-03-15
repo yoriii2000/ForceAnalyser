@@ -37,21 +37,43 @@ def plot_data(file_paths):
 
     for path in file_paths:
         times, values = read_data(path)
-        plt.plot(times, values, label=path.split('/')[-1])  # Label each line with the file name
+        parts = path.split('\\')  # 使用反斜杠进行分割
+        whichcube = parts[6]
+        force = parts[9]
+        if whichcube == "S":
+            plt.plot(times, values, label="Narrowest")
+        elif whichcube == "M":
+            plt.plot(times, values, label="Medium")
+        elif whichcube == "B":
+            plt.plot(times, values, label="Widest ")
+        else:
+            plt.plot(times, values, label=path.split('/')[-1])  # Label each line with the file name
+        if force == "Fx.txt":
+            plt.title('Combined Line Chart of "Fx" Data')
+        elif force == "Fy.txt":
+            plt.title('Combined Line Chart of "Fy" Data')
+        elif force == "Fz.txt":
+            plt.title('Combined Line Chart of "Fz" Data')
+        elif force == "Rx.txt":
+            plt.title('Combined Line Chart of "Rx" Data')
+        elif force == "Ry.txt":
+            plt.title('Combined Line Chart of "Ry" Data')
+        elif force == "Rz.txt":
+            plt.title('Combined Line Chart of "Rz" Data')
+        elif force == "F.txt":
+            plt.title('Combined Line Chart of "F" Data')
+        else:
+            plt.title('Combined Line Chart of Data')
 
     plt.xlabel('Time (s)')
     plt.ylabel('Force (N)')
-    plt.title('Combined Line Chart of Data')
     plt.legend()
     plt.show()
 
 file_paths = [
-    # 'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\S\\force data\\Fx.txt',
-    # 'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\M\\force data\\Fx.txt',
-    # 'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\B\\force data\\Fx.txt',
-    # 'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\S\\force data\\F_line0.txt',
-    # 'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\M\\force data\\F_line0.txt',
-    'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\B\\force data\\F_line0.txt',
+    'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\S\\force data\\aforce\\F.txt',
+    'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\M\\force data\\aforce\\F.txt',
+    'C:\\Users\\User\\Desktop\\Grinding Cube\\2\\B\\force data\\aforce\\F.txt'
 ]
 
 plot_data(file_paths)
